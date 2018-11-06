@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The future of qiscus sdk javascript</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Consolas'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# qiscus sdk <strike>web</strike> javascript
+
+An idea or proposal for the future of qiscus sdk on javascript land
+
+---
+class: middle
+## The current qiscus sdk web
+
+- Has multiple repo
+- Not so good release cycle
+- To much hassle when client (with tech knowledge)
+  want to implement it on their codebase
+- No support for popular framework (without hacky implementation)
+---
+class: middle
+## The proposed idea
+
+- Monorepo
+- Has full support for popular framework
+  - React
+  - Vue
+  - Angular
+  - React Native
+  - Flutter??
+- require-able via npm
+- cdn-able via unpkg.com, etc.
+---
+class: middle
+## Monorepo
+### current state:
+
+- qiscus/qiscus-sdk-web-core
+- qiscus/qiscus-ui-vue
+- qiscus/react-native-qiscus-sdk-js
+- qiscus/qiscus-react-native-js-example
+- qiscus/react-native-qiscus-streaming
+- qiscus/react-qiscusios
+
+> Not so clean, much trouble finding the right repository
+---
+class: middle
+## Monorepo
+### proposed state:
+
+- qiscus/qiscus-sdk-javascript
+  - packages/core
+  - packages/ui-vue
+  - packages/ui-react [to-do]
+  - packages/ui-angular [to-do]
+  - packages/ui-react-native
+  - packages/ui-widget [to-do]
+  - packages/example-react-component
+  - packages/example-vue-component
+  - packages/etc
+---
+class: middle
+## Full support for popular framework
+### Current
+
+- Manually `qiscus.render()`
+- React instance did not know about our chat view
+- Manually <i>destroy</i> qiscus instance when chat
+  component need to be hidden
+---
+class: middle
+## Full support for popular framework
+### Proposed
+
+- Make qiscus sdk component for those framework
+
+Example:
+```html
+<App>
+  <Qiscus core={qiscusSDKCore} />
+</App>
+```
+---
+class: middle
+## Full support for popular framework
+### Proposed - more example
+
+```html
+<App>
+  <Qiscus.Container core={qiscusSDKCore}>
+    <Qiscus.Header>
+      // Client custom header
+    </Qiscus.Header>
+    <Qiscus.ChatList>
+      // Client custom chat list
+    </Qiscus.ChatList>
+  </Qiscus.Container>
+</App>
+```
+---
+class: middle
+# Require-able from npm
+
+All project under `packages` directory
+will have it own package on npm as:
+- @qiscus/core
+- @qiscus/ui-vue
+- @qiscus/ui-react
+- etc
+
+Those make it easier for existing client
+that utilizing npm as their application
+dependencies management
+---
+class: middle
+# CDN-able via unpkg.com
+
+<small>From unpkg website</small>
+> unpkg is a fast, global content delivery network for everything on npm.
+
+Because we already had<sup>(soon)</sup> our sdk on npm, we can utilize
+unpkg for our CDN, so it will be much more cleaner. Like:
+
+https://unpkg.com/@qiscus/core
+
+or with version specified
+
+https://unpkg.com/@qiscus/core@2.4.5
+
+or with direct file access
+
+https://unpkg.com/@qiscus/core@2.4.5/dist/qiscus-sdk.min.js
+
+---
+class: center, middle
+
+# Fin.
+
+    </textarea>
+    <script src="remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
