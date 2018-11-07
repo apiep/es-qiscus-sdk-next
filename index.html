@@ -49,8 +49,9 @@ class: middle
 - cdn-able via unpkg.com, etc.
 ---
 class: middle
-## Monorepo
-### current state:
+
+# Monorepo
+## current state:
 
 - qiscus/qiscus-sdk-web-core
 - qiscus/qiscus-ui-vue
@@ -60,10 +61,12 @@ class: middle
 - qiscus/react-qiscusios
 
 > Not so clean, much trouble finding the right repository
+
 ---
+
 class: middle
-## Monorepo
-### proposed state:
+# Monorepo
+## proposed state:
 
 - qiscus/qiscus-sdk-javascript
   - packages/core
@@ -147,7 +150,108 @@ https://unpkg.com/@qiscus/core@2.4.5
 or with direct file access
 
 https://unpkg.com/@qiscus/core@2.4.5/dist/qiscus-sdk.min.js
+---
+class: middle, center
+# How To
+---
+class: middle,center
+# Monorepo
+## Lerna
 
+🐉 A tool for managing JavaScript projects with multiple packages.
+
+https://lernajs.io
+---
+class: middle
+
+## Directory structure
+```txt
++ qiscus-sdk-javascript
+|--\ package.json
+|  | lerna.json
+|  + packages
+|  |--\ core
+|  |  |--+ package.json
+|  |  + ui-vue
+|  |  |--+ package.json
+```
+---
+class: middle
+
+## root package.json (on qiscus-sdk-javascript)
+```json
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "dev": "lerna run dev --parallel"
+  },
+  "devDependencies": {
+    "lerna": "^3.4.3"
+  }
+}
+```
+---
+class: middle
+## Each project package.json
+```json
+{
+  "name": "@qiscus/core",
+  "scripts": {
+    "dev": "webpack --watch"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
+```
+---
+class: middle
+## Things to be concerned
+- Project dependencies should goes to it's package.json
+- Project devDependencies should goes to it's package.json
+- Common devDependencies should goes to root package.json
+---
+class: middle, center
+# Test
+
+How can QA contribute to qiscus SDK
+---
+class: middle
+## What to test
+
+Write unit test todo
+
+- Via function signature as discussed in meeting(?) before
+- Via requirements
+---
+class: middle
+## Via function signature
+
+```javascript
+describe('QiscusSDK instance', function () {
+  it('Should only have specified public function', function () {
+  })
+  it('render without crash', function () {})
+})
+describe('QiscusSDK instance', function () {
+  describe('#sendComment', function () {
+    it('should throw error if comment not provided', function () {})
+    it('should throw error if roomId not provided', function () {})
+  })
+})
+```
+---
+class: middle
+# Conclusion
+
+From tech eyes
+- Structured project
+- Easy to maintain and contribute (InsyaAllah) 😅
+- Has test. Unit, e2e (still learning on how to)
+
+From biz eyes (imho)
+- Can sell based on easier to implement (in case they had tech ppl)
+- ... ??
 ---
 class: center, middle
 
@@ -157,7 +261,9 @@ class: center, middle
     <script src="remark-latest.min.js">
     </script>
     <script>
-      var slideshow = remark.create();
+      var slideshow = remark.create({
+        ratio: '16:9'
+      });
     </script>
   </body>
 </html>
